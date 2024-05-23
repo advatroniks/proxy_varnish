@@ -17,11 +17,12 @@ router = APIRouter(
 
 
 @router.get(
-    path="/"
+    path="/{target_url_file:path}"
 )
 async def get_file_from_target_host(
         target_url_file: str
 ):
+    print(target_url_file)
     file_bytes: bytes = await get_file_from_s3_if_not_exists_upload_to_s3(
         target_url_file=target_url_file,
     )
