@@ -7,5 +7,5 @@ app = FastAPI(
     title="Varnish SSS Proxy"
 )
 
-app.include_router(router=router, prefix="/proxy_api")
+app.include_router(router=router, prefix="/")
 

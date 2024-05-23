@@ -36,7 +36,7 @@ async def get_file_from_target_host(
         await file.write(file_bytes)
 
     return FileResponse(
-        path=f"{BASE_PATH}/{filename}"
+        path=f"{BASE_PATH}/temporary_storage/{filename}"
     )
 
 
