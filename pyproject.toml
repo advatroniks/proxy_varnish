@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "varnishcurlproxy"
+version = "0.1.0"
+description = "Proxy for upload and download files via curl varnish library"
+authors = ["harold <tihon414@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.111.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
