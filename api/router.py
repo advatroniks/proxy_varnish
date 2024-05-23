@@ -17,7 +17,7 @@ router = APIRouter(
 
 
 @router.get(
-    path=""
+    path="/"
 )
 async def get_file_from_target_host(
         s3_url: str,
