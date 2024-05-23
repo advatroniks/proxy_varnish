@@ -20,14 +20,10 @@ router = APIRouter(
     path="/"
 )
 async def get_file_from_target_host(
-        s3_url: str,
-        bucket: str,
         target_url_file: str
 ):
     file_bytes: bytes = await get_file_from_s3_if_not_exists_upload_to_s3(
         target_url_file=target_url_file,
-        bucket_name=bucket,
-        s3_endpoint_url=s3_url
     )
 
     filename = api_utils.get_filename_from_url(url=target_url_file)
