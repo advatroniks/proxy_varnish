@@ -1,6 +1,6 @@
 from fastapi import UploadFile
 
-from aioboto3 import Session
+import aioboto3
 
 from config import main_config
 
@@ -13,16 +13,18 @@ async def upload_file(
 ):
     file_as_bytes: bytes = await file.read()
 
-    session = Session()
+    session = aioboto3.Session(
+        aws_secret_access_key=main_config.ACCESS_KEY,
+        aws_access_key_id=main_config.SECRET_KEY,
+    )
     async with session.client(
         's3',
         endpoint_url=s3_endpoint_url,
-        aws_secret_access_key=main_config.ACCESS_KEY,
-        aws_access_key_id=main_config.SECRET_KEY,
+        verify=False,
         use_ssl=False
     ) as s3_client:
         try:
-            blob_s3_key = f"{bucket_name}/{path_param}/{file.filename}"
+            blob_s3_key = f"{bucket_name}{path_param}{file.filename}"
 
             await s3_client.upload_fileobj(
                 file_as_bytes, bucket_name, blob_s3_key

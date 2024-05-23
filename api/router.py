@@ -9,11 +9,12 @@ router = APIRouter(
 
 
 @router.post(
-    path="/"
+    path=""
 )
 async def upload_file_to_s3(
         request: Request,
-        file: UploadFile = File(...)
+        # path_params: Annotated[str | None, Path()],
+        file: UploadFile = File(...),
 ):
     await upload_file(
         path_param=request.url.path,
