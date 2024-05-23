@@ -67,10 +67,18 @@ async def get_file_from_s3_if_not_exists_upload_to_s3(
             print(f"Unable to get {target_url_file} in {blob_s3_key}: {e} ({type(e)})")
 
             async with httpx.AsyncClient() as httpx_client:
-                response = await httpx_client.get(
-                    url=f"http://{target_url_file}"
-                )
-                file_as_bytes = response.content
+                try:
+                    response = await httpx_client.get(
+                        url=f"http://{target_url_file}"
+                    )
+                    file_as_bytes = response.content
+                except Exception as e:
+                    print(e)
+                    recent_uploaded_s3_obj = await s3_client.get_object(
+                        Bucket=bucket_name,
+                        Key=blob_s3_key
+                    )
+                    return await recent_uploaded_s3_obj['Body'].read()
 
             await upload_file_to_s3(
                 target_url_file=target_url_file,
