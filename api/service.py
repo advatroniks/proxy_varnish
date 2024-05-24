@@ -39,10 +39,9 @@ async def get_file_from_s3_if_not_exists_upload_to_s3(
         target_url_file: str,
 ) -> bytes:
 
-    #TODO
-    bucket_name = "newbucket"
-
-
+    bucket_name = api_utils.parse_link_to_get_bucket_name(
+        url=target_url_file
+    )
     session = aioboto3.Session(
         aws_secret_access_key=main_config.SECRET_KEY,
         aws_access_key_id=main_config.ACCESS_KEY,
